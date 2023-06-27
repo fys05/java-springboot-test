@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: springboot-test
-  namespace: jenkins
+  namespace: devops
 spec:
   serviceName: "springboot-test"
   replicas: 2
