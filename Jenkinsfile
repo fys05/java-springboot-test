@@ -41,15 +41,15 @@ podTemplate(                  // pod模板
             //git credentialsId: 'cd4dfa5f-49d6-4908-a344-fe418d28dcbd', url: 'http://192.168.40.210:31323/fff/java-springboot-test.git'
             git credentialsId: 'gitlab', url: 'http://192.168.40.210:32456/root/java-springboot-test.git'
         }
-        //第一种方法构建镜像，打包镜像
+        //第一种方法构建镜像，打包镜像，需在java项目pom.xml或setting.xml进行配置镜像仓库，镜像版本等等
         stage('编译打包构建镜像'){
             container('maven'){
                 sh "pwd && cp settings.xml /usr/share/maven/conf/settings.xml"
-                sh "mvn clean install dockerfile:build dockerfile:push" //需安装dockerfile-maven-plugin插件，新版本jenkins没这个插件了
+                sh "mvn clean install dockerfile:build dockerfile:push" 
                 //sh "mvn clean install"
             }
         }
-        //第2种方法构建镜像，上传镜像
+        //第2种方法构建镜像，上传镜像，推荐第二种
         stage('构建镜像并上传镜像'){
             container('docker'){
                 def harbor_auth="dockerhub"
